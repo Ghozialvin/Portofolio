@@ -4,20 +4,10 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-
+  const repoName = env.VITE_REPO_NAME || "Portofolio";
   return {
-    base: env.VITE_REPO_NAME ? `/${env.VITE_REPO_NAME}/` : "/",
+    base: `/${repoName}/`,
     plugins: [react(), tailwindcss()],
-    server: {
-      open: true,
-      host: false, // Allow access from network devices
-      proxy: {
-        "/api": {
-          target: "http://localhost:5000",
-          changeOrigin: true,
-          secure: true,
-        },
-      },
-    },
+    server: { open: true }
   };
 });
